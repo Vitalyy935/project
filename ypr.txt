@@ -1,0 +1,24 @@
+import math
+import scipy.special
+
+
+def k(x, n):
+    return -((x ** 2) * (2 * n + 1)) / ((2 * n + 3) * (n + 1))
+
+
+def Myerf(x):
+    n = 0
+    s0 = x
+    s = s0
+    s1 = s0 * k(x, n)
+    while abs(s0 - s1) >= 0.0001:
+        s += s1
+        n += 1
+        s0 = s1
+        s1 = s0 * k(x, n)
+    return s * 2 / math.sqrt(math.pi)
+
+
+x = int(input("Введите x: "))
+print("Значение своей функции " + str(Myerf(x)))
+print("Значение библиотечной функции " + str(scipy.special.erf(x)))
